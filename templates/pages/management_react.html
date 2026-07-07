@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Template (React CRUD)</title>
+    
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- React and ReactDOM CDNs -->
+    <script crossorigin="anonymous" src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel CDN for inline JSX compilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        /* Base Styles adhering to rules */
+        :root {
+            --primary-color: #1D4ED8; /* Sub-department 2: Royal Blue */
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            padding-bottom: 50px;
+        }
+
+        /* Top Navbar */
+        .navbar-custom {
+            background-color: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Card and Container Styles */
+        .card-custom {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* Toolbar Styling */
+        .data-toolbar {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-wrapper { position: relative; flex-grow: 1; min-width: 250px; max-width: 400px; }
+        .search-wrapper .form-control { padding-left: 40px; border-radius: 6px; border: 1px solid #dee2e6; background-color: #f8f9fa; }
+        .search-wrapper .form-control:focus { background-color: #ffffff; border-color: var(--primary-color); box-shadow: 0 0 0 0.25rem rgba(29, 78, 216, 0.15); }
+        .search-wrapper .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #6c757d; }
+
+        .toolbar-controls { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+        
+        .toolbar-btn {
+            display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid #dee2e6; color: #495057; padding: 8px 16px; border-radius: 6px; font-weight: 500; transition: all 0.2s ease;
+        }
+        .toolbar-btn:hover { background: #f8f9fa; color: #212529; }
+        
+        .toolbar-select { border: 1px solid #dee2e6; padding: 8px 36px 8px 16px; border-radius: 6px; color: #495057; font-weight: 500; cursor: pointer; }
+        .toolbar-select:focus { border-color: var(--primary-color); box-shadow: 0 0 0 0.25rem rgba(29, 78, 216, 0.15); }
+
+        .filter-dropdown-menu { min-width: 280px; padding: 15px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-radius: 8px; }
+
+        /* Table check box */
+        .form-check-input:checked { background-color: var(--primary-color); border-color: var(--primary-color); }
+        
+        /* Table styles */
+        .table-custom th { font-weight: 600; color: #495057; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; }
+        .table-custom tbody tr { transition: background-color 0.2s; }
+        .table-custom tbody tr:hover { background-color: #f8f9fa; }
+        .table-custom tbody tr.selected { background-color: rgba(29, 78, 216, 0.05); }
+
+        @media (max-width: 768px) {
+            .data-toolbar { flex-direction: column; align-items: stretch; }
+            .search-wrapper { max-width: 100%; }
+            .toolbar-controls { margin-left: 0; justify-content: space-between; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/babel">
+        const { useState, useEffect, useCallback, useRef } = React;
+
+        // ==========================================
+        // 1. MOCK API BACKEND
+        // Simulates async database operations
+        // ==========================================
+        
+        let MOCK_DATABASE = [
+            { id: 1, name: 'Project Alpha', owner: 'John Doe', status: 'Active', category: 'Internal', created: '2023-10-01T10:00:00Z' },
+            { id: 2, name: 'Customer Portal V2', owner: 'Jane Smith', status: 'In Progress', category: 'External', created: '2023-10-15T14:30:00Z' },
+            { id: 3, name: 'HR Dashboard', owner: 'Alice Johnson', status: 'Active', category: 'Internal', created: '2023-09-20T09:15:00Z' },
+            { id: 4, name: 'Legacy CRM', owner: 'Bob Brown', status: 'Archived', category: 'External', created: '2021-05-11T11:00:00Z' },
+            { id: 5, name: 'Sales Tracking', owner: 'Charlie Davis', status: 'Pending', category: 'Internal', created: '2023-11-02T16:45:00Z' }
+        ];
+        let nextId = 6;
+
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+        const MockAPI = {
+            // Read
+            fetchItems: async ({ search, status, sort }) => {
+                await sleep(400); // simulate network delay
+                let data = [...MOCK_DATABASE];
+
+                // Server-side search
+                if (search) {
+                    const q = search.toLowerCase();
+                    data = data.filter(item => item.name.toLowerCase().includes(q) || item.owner.toLowerCase().includes(q));
+                }
+                
+                // Server-side filter
+                if (status && status.length > 0) {
+                    data = data.filter(item => status.includes(item.status));
+                }
+
+                // Server-side sort
+                data.sort((a, b) => {
+                    if (sort === 'newest') return new Date(b.created) - new Date(a.created);
+                    if (sort === 'oldest') return new Date(a.created) - new Date(b.created);
+                    if (sort === 'name_asc') return a.name.localeCompare(b.name);
+                    if (sort === 'name_desc') return b.name.localeCompare(a.name);
+                    return 0;
+                });
+
+                return data;
+            },
+            
+            // Create
+            createItem: async (payload) => {
+                await sleep(500);
+                const newItem = {
+                    id: nextId++,
+                    ...payload,
+                    created: new Date().toISOString()
+                };
+                MOCK_DATABASE.push(newItem);
+                return newItem;
+            },
+
+            // Update
+            updateItem: async (id, payload) => {
+                await sleep(500);
+                const index = MOCK_DATABASE.findIndex(i => i.id === id);
+                if (index > -1) {
+                    MOCK_DATABASE[index] = { ...MOCK_DATABASE[index], ...payload };
+                    return MOCK_DATABASE[index];
+                }
+                throw new Error("Item not found");
+            },
+
+            // Delete
+            deleteItem: async (id) => {
+                await sleep(500);
+                MOCK_DATABASE = MOCK_DATABASE.filter(i => i.id !== id);
+                return true;
+            },
+
+            // Bulk Delete
+            deleteMany: async (ids) => {
+                await sleep(800);
+                MOCK_DATABASE = MOCK_DATABASE.filter(i => !ids.includes(i.id));
+                return true;
+            }
+        };
+
+
+        // ==========================================
+        // 2. UI COMPONENTS
+        // ==========================================
+
+        function Toolbar({ 
+            searchQuery, setSearchQuery, 
+            statusFilter, setStatusFilter, 
+            sortBy, setSortBy, 
+            onRefresh, selectedCount, onDeleteSelected 
+        }) {
+            const handleStatusToggle = (status) => {
+                setStatusFilter(prev => prev.includes(status) ? prev.filter(s => s !== status) : [...prev, status]);
+            };
+
+            const statuses = ['Active', 'In Progress', 'Pending', 'Archived'];
+            const activeFilterCount = statuses.length - (statuses.filter(s => !statusFilter.includes(s)).length);
+
+            return (
+                <div className="card card-custom mb-4">
+                    <div className="data-toolbar">
+                        
+                        {/* Batch Actions (Shows when items selected) */}
+                        {selectedCount > 0 ? (
+                            <div className="d-flex align-items-center w-100 bg-light p-2 rounded">
+                                <span className="fw-bold me-3 text-primary">{selectedCount} items selected</span>
+                                <button className="btn btn-sm btn-outline-danger me-2" onClick={onDeleteSelected}>
+                                    <i className="fas fa-trash me-1"></i> Delete Selected
+                                </button>
+                                <button className="btn btn-sm btn-outline-secondary ms-auto" onClick={() => {/* bulk edit logic */}}>
+                                    <i className="fas fa-edit me-1"></i> Bulk Edit
+                                </button>
+                            </div>
+                        ) : (
+                            <>
+                                {/* Normal Toolbar */}
+                                <div className="search-wrapper">
+                                    <i className="fas fa-search search-icon"></i>
+                                    <input 
+                                        type="text" className="form-control" 
+                                        placeholder="Search by name or owner..." 
+                                        value={searchQuery}
+                                        onChange={e => setSearchQuery(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="toolbar-controls">
+                                    <button className="btn btn-light border" onClick={onRefresh} title="Refresh Data">
+                                        <i className="fas fa-sync-alt"></i>
+                                    </button>
+
+                                    <div className="dropdown">
+                                        <button className="toolbar-btn" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                                            <i className="fas fa-filter"></i> Filter
+                                            {activeFilterCount > 0 && <span className="badge bg-primary rounded-pill ms-1">{activeFilterCount}</span>}
+                                        </button>
+                                        <div className="dropdown-menu dropdown-menu-end filter-dropdown-menu">
+                                            <h6 className="dropdown-header px-0 text-dark fw-bold">Filter by Status</h6>
+                                            {statuses.map(status => (
+                                                <div className="form-check mb-2" key={status}>
+                                                    <input 
+                                                        className="form-check-input" type="checkbox" id={`flt-${status}`}
+                                                        checked={statusFilter.includes(status)}
+                                                        onChange={() => handleStatusToggle(status)}
+                                                    />
+                                                    <label className="form-check-label" htmlFor={`flt-${status}`}>{status}</label>
+                                                </div>
+                                            ))}
+                                            <hr className="dropdown-divider" />
+                                            <button className="btn btn-sm btn-light w-100" onClick={() => setStatusFilter(statuses)}>Clear Filters</button>
+                                        </div>
+                                    </div>
+
+                                    <div className="d-flex align-items-center gap-2">
+                                        <span className="text-muted small fw-semibold d-none d-md-inline">Sort:</span>
+                                        <select className="form-select toolbar-select" value={sortBy} onChange={e => setSortBy(e.target.value)}>
+                                            <option value="newest">Newest First</option>
+                                            <option value="oldest">Oldest First</option>
+                                            <option value="name_asc">Name (A-Z)</option>
+                                            <option value="name_desc">Name (Z-A)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        function CreateEditModal({ show, item, onClose, onSave }) {
+            // Need a ref to the Bootstrap modal instance
+            const modalRef = useRef(null);
+            const bsModalRef = useRef(null);
+            
+            const [formData, setFormData] = useState({ name: '', owner: '', status: 'Active', category: 'Internal' });
+            const [saving, setSaving] = useState(false);
+
+            useEffect(() => {
+                if (show) {
+                    if (item) setFormData({ name: item.name, owner: item.owner, status: item.status, category: item.category });
+                    else setFormData({ name: '', owner: '', status: 'Active', category: 'Internal' });
+                    
+                    if (!bsModalRef.current && modalRef.current) {
+                        bsModalRef.current = new window.bootstrap.Modal(modalRef.current);
+                    }
+                    bsModalRef.current.show();
+                } else {
+                    if (bsModalRef.current) bsModalRef.current.hide();
+                }
+            }, [show, item]);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                setSaving(true);
+                await onSave(formData, item ? item.id : null);
+                setSaving(false);
+            };
+
+            const closeAction = () => {
+                if (bsModalRef.current) bsModalRef.current.hide();
+                onClose();
+            };
+
+            return (
+                <div className="modal fade" ref={modalRef} tabIndex="-1" data-bs-backdrop="static">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <form onSubmit={handleSubmit}>
+                                <div className="modal-header">
+                                    <h5 className="modal-title">{item ? 'Edit Project' : 'Create New Project'}</h5>
+                                    <button type="button" className="btn-close" onClick={closeAction}></button>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="mb-3">
+                                        <label className="form-label">Project Name</label>
+                                        <input required type="text" className="form-control" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Owner</label>
+                                        <input required type="text" className="form-control" value={formData.owner} onChange={e => setFormData({...formData, owner: e.target.value})} />
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6 mb-3">
+                                            <label className="form-label">Status</label>
+                                            <select className="form-select" value={formData.status} onChange={e => setFormData({...formData, status: e.target.value})}>
+                                                <option>Active</option>
+                                                <option>In Progress</option>
+                                                <option>Pending</option>
+                                                <option>Archived</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-md-6 mb-3">
+                                            <label className="form-label">Category</label>
+                                            <select className="form-select" value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})}>
+                                                <option>Internal</option>
+                                                <option>External</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-light" onClick={closeAction} disabled={saving}>Cancel</button>
+                                    <button type="submit" className="btn btn-primary" disabled={saving}>
+                                        {saving ? <span className="spinner-border spinner-border-sm me-2" /> : <i className="fas fa-save me-1"></i>}
+                                        {item ? 'Save Changes' : 'Create'}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // ==========================================
+        // 3. MAIN APP (State & Logic)
+        // ==========================================
+
+        function App() {
+            // Data State
+            const [data, setData] = useState([]);
+            const [loading, setLoading] = useState(true);
+            
+            // Selection State
+            const [selectedIds, setSelectedIds] = useState([]);
+
+            // Filter/Sort Parameters State
+            const [searchQuery, setSearchQuery] = useState('');
+            const [statusFilter, setStatusFilter] = useState(['Active', 'In Progress', 'Pending', 'Archived']);
+            const [sortBy, setSortBy] = useState('newest');
+
+            // Modal State
+            const [showModal, setShowModal] = useState(false);
+            const [editingItem, setEditingItem] = useState(null);
+
+            // Fetch Data Function
+            const fetchData = useCallback(async () => {
+                setLoading(true);
+                try {
+                    const result = await MockAPI.fetchItems({ 
+                        search: searchQuery, 
+                        status: statusFilter, 
+                        sort: sortBy 
+                    });
+                    setData(result);
+                } catch (err) {
+                    console.error("Failed to fetch", err);
+                    alert("Error loading data");
+                }
+                setLoading(false);
+            }, [searchQuery, statusFilter, sortBy]);
+
+            // Debounced fetch when filters change
+            useEffect(() => {
+                const timer = setTimeout(() => {
+                    fetchData();
+                    // Clear selections when data refreshes to prevent ghost selections
+                    setSelectedIds([]);
+                }, 300); // 300ms debounce
+                return () => clearTimeout(timer);
+            }, [fetchData]);
+
+            // Handlers
+            const handleSave = async (formData, id) => {
+                try {
+                    if (id) {
+                        await MockAPI.updateItem(id, formData);
+                    } else {
+                        await MockAPI.createItem(formData);
+                    }
+                    setShowModal(false);
+                    fetchData(); // Refresh list
+                } catch (e) {
+                    alert("Failed to save");
+                }
+            };
+
+            const handleDelete = async (id) => {
+                if(confirm("Are you sure you want to delete this item?")) {
+                    setLoading(true);
+                    await MockAPI.deleteItem(id);
+                    fetchData();
+                }
+            };
+
+            const handleBulkDelete = async () => {
+                if(confirm(`Are you sure you want to delete ${selectedIds.length} items?`)) {
+                    setLoading(true);
+                    await MockAPI.deleteMany(selectedIds);
+                    setSelectedIds([]);
+                    fetchData();
+                }
+            };
+
+            // Selection Logic
+            const toggleSelectAll = (e) => {
+                if (e.target.checked) setSelectedIds(data.map(i => i.id));
+                else setSelectedIds([]);
+            };
+
+            const toggleSelectRow = (id) => {
+                setSelectedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+            };
+
+            return (
+                <div>
+                    {/* Navbar */}
+                    <nav className="navbar navbar-custom mb-4 py-3">
+                        <div className="container-fluid">
+                            <span className="navbar-brand mb-0 h1 fw-bold"><i className="fas fa-layer-group me-2"></i> Management Portal</span>
+                        </div>
+                    </nav>
+
+                    <div className="container-fluid px-4">
+                        <div className="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <h3 className="mb-0">Projects Overview</h3>
+                                <p className="text-muted mb-0">Manage all internal and external projects</p>
+                            </div>
+                            <button 
+                                className="btn btn-primary shadow-sm" 
+                                onClick={() => { setEditingItem(null); setShowModal(true); }}
+                            >
+                                <i className="fas fa-plus me-1"></i> Add Project
+                            </button>
+                        </div>
+
+                        {/* Interactive Toolbar */}
+                        <Toolbar 
+                            searchQuery={searchQuery} setSearchQuery={setSearchQuery}
+                            statusFilter={statusFilter} setStatusFilter={setStatusFilter}
+                            sortBy={sortBy} setSortBy={setSortBy}
+                            onRefresh={fetchData}
+                            selectedCount={selectedIds.length}
+                            onDeleteSelected={handleBulkDelete}
+                        />
+
+                        {/* Data Grid */}
+                        <div className="card card-custom overflow-hidden">
+                            {loading && (
+                                <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center bg-white" style={{opacity: 0.7, zIndex: 10}}>
+                                    <div className="spinner-border text-primary" role="status"></div>
+                                </div>
+                            )}
+                            
+                            <div className="table-responsive">
+                                <table className="table table-custom table-hover align-middle mb-0">
+                                    <thead className="table-light">
+                                        <tr>
+                                            <th className="ps-4" style={{width: '40px'}}>
+                                                <input 
+                                                    className="form-check-input" type="checkbox" 
+                                                    checked={data.length > 0 && selectedIds.length === data.length}
+                                                    onChange={toggleSelectAll}
+                                                />
+                                            </th>
+                                            <th>Project Name</th>
+                                            <th>Category</th>
+                                            <th>Owner</th>
+                                            <th>Status</th>
+                                            <th>Date Created</th>
+                                            <th className="text-end pe-4">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {data.length === 0 && !loading && (
+                                            <tr>
+                                                <td colSpan="7" className="text-center py-5 text-muted">
+                                                    <i className="fas fa-search fa-2x mb-3 text-light"></i>
+                                                    <h5>No results found</h5>
+                                                </td>
+                                            </tr>
+                                        )}
+                                        {data.map(item => {
+                                            const isSelected = selectedIds.includes(item.id);
+                                            return (
+                                                <tr key={item.id} className={isSelected ? 'selected' : ''}>
+                                                    <td className="ps-4">
+                                                        <input 
+                                                            className="form-check-input" type="checkbox" 
+                                                            checked={isSelected}
+                                                            onChange={() => toggleSelectRow(item.id)}
+                                                        />
+                                                    </td>
+                                                    <td className="fw-bold">{item.name}</td>
+                                                    <td><span className="badge bg-light text-dark border">{item.category}</span></td>
+                                                    <td>{item.owner}</td>
+                                                    <td>
+                                                        <span className={`badge ${
+                                                            item.status === 'Active' ? 'bg-success' : 
+                                                            item.status === 'In Progress' ? 'bg-info text-dark' : 
+                                                            item.status === 'Pending' ? 'bg-warning text-dark' : 'bg-secondary'
+                                                        }`}>
+                                                            {item.status}
+                                                        </span>
+                                                    </td>
+                                                    <td>{new Date(item.created).toLocaleDateString()}</td>
+                                                    <td className="text-end pe-4">
+                                                        <button 
+                                                            className="btn btn-sm btn-light border me-2" 
+                                                            onClick={() => { setEditingItem(item); setShowModal(true); }}
+                                                            title="Edit"
+                                                        ><i className="fas fa-edit text-primary"></i></button>
+                                                        <button 
+                                                            className="btn btn-sm btn-light border" 
+                                                            onClick={() => handleDelete(item.id)}
+                                                            title="Delete"
+                                                        ><i className="fas fa-trash text-danger"></i></button>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Modals */}
+                    <CreateEditModal 
+                        show={showModal} 
+                        item={editingItem} 
+                        onClose={() => setShowModal(false)} 
+                        onSave={handleSave} 
+                    />
+
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

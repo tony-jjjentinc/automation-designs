@@ -1,0 +1,38 @@
+<!--
+  Layout Module: Top Navbar (with dropdown)
+  Description: A standardized top navigation bar featuring a logo on the left and an interactive user profile dropdown on the right.
+  Usage: In React, you'd use a `showDropdown` state. Here, we simulate interactivity using Tailwind's `group-hover` class.
+-->
+<header class="flex justify-between items-center px-6 py-4 bg-white/90 backdrop-blur-xl border-b border-slate-200 sticky top-0 z-40">
+  <div class="flex items-center gap-3">
+    <img src="../assets/images/jjjei2.png" alt="Logo" class="h-8 object-contain drop-shadow-sm" />
+  </div>
+  
+  <!-- Profile Group (Dropdown Trigger) -->
+  <div class="relative group">
+    <div class="flex items-center gap-3 px-3 py-1.5 rounded-full hover:bg-slate-50 transition-colors cursor-pointer border border-transparent hover:border-slate-200">
+      <div class="text-right hidden md:block">
+        <div class="text-sm font-semibold text-slate-800 leading-tight">Arthur Peterson</div>
+        <div class="text-xs text-brand-600 font-medium">Administrator</div>
+      </div>
+      <!-- Colored Initials Avatar -->
+      <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold shadow-md text-sm border border-brand-700/20">
+        A
+      </div>
+      <i class="bi bi-chevron-down text-slate-400 text-xs ml-1 transition-transform duration-200 group-hover:rotate-180"></i>
+    </div>
+    
+    <!-- Dropdown Menu (Visible on hover for display purposes) -->
+    <div class="absolute right-0 mt-3 w-56 bg-white border border-slate-200 rounded-xl shadow-xl py-2 z-50 origin-top-right hidden group-hover:block">
+      <!-- Mobile Profile Info (shown in dropdown instead of header on small screens) -->
+      <div class="px-4 py-3 border-b border-slate-100 mb-2 md:hidden">
+        <div class="text-sm font-bold text-slate-800">Arthur Peterson</div>
+        <div class="text-xs text-brand-600">Administrator</div>
+      </div>
+      <!-- Sign Out Action -->
+      <button class="w-full text-left px-4 py-2.5 text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors flex items-center gap-3 text-sm font-medium">
+        <i class="bi bi-box-arrow-right text-lg"></i> Sign Out
+      </button>
+    </div>
+  </div>
+</header>

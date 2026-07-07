@@ -1,0 +1,188 @@
+<!--
+  UI Component: Visualizers & Charts
+  Description: Responsive, beautiful charts using Chart.js tailored to match the Tailwind brand palette.
+  Requirement: You MUST include Chart.js in your <head> to use this:
+               <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+-->
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  
+  <!-- Line Chart Card -->
+  <div class="border border-slate-200 rounded-2xl p-6 bg-white shadow-sm flex flex-col">
+    <div class="mb-4">
+      <h3 class="text-lg font-bold text-slate-800">Revenue Trend</h3>
+      <p class="text-xs text-slate-400 font-medium">Monthly performance across Q3</p>
+    </div>
+    <div class="relative flex-grow h-64">
+      <canvas id="lineChartExample"></canvas>
+    </div>
+  </div>
+
+  <!-- Doughnut Chart Card -->
+  <div class="border border-slate-200 rounded-2xl p-6 bg-white shadow-sm flex flex-col">
+    <div class="mb-4">
+      <h3 class="text-lg font-bold text-slate-800">User Demographics</h3>
+      <p class="text-xs text-slate-400 font-medium">Distribution by platform</p>
+    </div>
+    <div class="relative flex-grow h-64 flex justify-center items-center">
+      <canvas id="doughnutChartExample"></canvas>
+    </div>
+  </div>
+
+  <!-- Bar Chart Card -->
+  <div class="border border-slate-200 rounded-2xl p-6 bg-white shadow-sm flex flex-col">
+    <div class="mb-4">
+      <h3 class="text-lg font-bold text-slate-800">Weekly Performance</h3>
+      <p class="text-xs text-slate-400 font-medium">Tasks completed per day</p>
+    </div>
+    <div class="relative flex-grow h-64">
+      <canvas id="barChartExample"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<!-- Initialization Script for the Charts -->
+<script>
+  // Ensure the DOM is fully loaded if placing this in the <head> or external file,
+  // or simply place this script at the end of your <body>.
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Initialize Line Chart
+    const lineCtx = document.getElementById('lineChartExample');
+    if (lineCtx) {
+      new Chart(lineCtx, {
+        type: 'line',
+        data: {
+          labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          datasets: [{
+            label: 'Revenue ($)',
+            data: [12500, 15000, 14200, 18500, 22000, 24500],
+            borderColor: '#3b82f6', // brand-500
+            backgroundColor: 'rgba(59, 130, 246, 0.1)', // brand-500 with opacity
+            borderWidth: 3,
+            pointBackgroundColor: '#ffffff',
+            pointBorderColor: '#3b82f6',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            fill: true,
+            tension: 0.4 // Smooth curves
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#1e293b', // slate-800
+              padding: 10,
+              cornerRadius: 8,
+              displayColors: false,
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false, drawBorder: false },
+              ticks: { color: '#94a3b8', font: { family: 'Inter', size: 12 } } // slate-400
+            },
+            y: {
+              border: { display: false },
+              grid: { color: '#f1f5f9', borderDash: [5, 5] }, // slate-100
+              ticks: { 
+                color: '#94a3b8', 
+                font: { family: 'Inter', size: 12 },
+                callback: (value) => '$' + (value / 1000) + 'k'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // 2. Initialize Doughnut Chart
+    const doughnutCtx = document.getElementById('doughnutChartExample');
+    if (doughnutCtx) {
+      new Chart(doughnutCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Desktop', 'Mobile', 'Tablet'],
+          datasets: [{
+            data: [55, 30, 15],
+            backgroundColor: [
+              '#3b82f6', // brand-500
+              '#0ea5e9', // sky-500
+              '#cbd5e1'  // slate-300
+            ],
+            borderWidth: 0,
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '75%', // Thin ring
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                usePointStyle: true,
+                padding: 20,
+                color: '#64748b', // slate-500
+                font: { family: 'Inter', size: 12 }
+              }
+            },
+            tooltip: {
+              backgroundColor: '#1e293b',
+              padding: 10,
+              cornerRadius: 8
+            }
+          }
+        }
+      });
+    }
+
+    // 3. Initialize Bar Chart
+    const barCtx = document.getElementById('barChartExample');
+    if (barCtx) {
+      new Chart(barCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+          datasets: [{
+            label: 'Tasks Completed',
+            data: [12, 19, 15, 25, 22],
+            backgroundColor: '#3b82f6', // brand-500
+            borderRadius: 4,
+            borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#1e293b',
+              padding: 10,
+              cornerRadius: 8,
+              displayColors: false,
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false, drawBorder: false },
+              ticks: { color: '#94a3b8', font: { family: 'Inter', size: 12 } }
+            },
+            y: {
+              border: { display: false },
+              grid: { color: '#f1f5f9', borderDash: [5, 5] },
+              ticks: { color: '#94a3b8', font: { family: 'Inter', size: 12 } }
+            }
+          }
+        }
+      });
+    }
+  });
+</script>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Components Template</title>
+  <base target="_top">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: {
+              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa',
+              500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased p-4 md:p-8">
+
+  <div class="max-w-5xl mx-auto space-y-12 pb-16">
+    <div>
+      <a href="../index.html" class="text-brand-600 hover:text-brand-700 text-sm font-semibold mb-4 inline-block"><i class="bi bi-arrow-left"></i> Back to Hub</a>
+      <h1 class="text-3xl font-bold text-slate-900 tracking-tight">UI Components</h1>
+      <p class="text-slate-500 mt-2 text-lg">Preview of user interface components with <b>Tailwind CSS</b> styling</p>
+    </div>
+
+    <!-- Buttons -->
+    <section class="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b border-slate-100 pb-4 gap-2">
+        <h2 class="text-2xl font-bold text-slate-800">Buttons & Actions</h2>
+        <a href="https://github.com/tony-jjjentinc/automation-designs/blob/main/snippets/ui/buttons.html" target="_blank" class="text-sm font-medium text-brand-600 hover:text-brand-800 flex items-center gap-2 bg-brand-50 px-3 py-1.5 rounded-lg transition-colors hover:bg-brand-100"><i class="bi bi-github"></i> View source code snippet</a>
+      </div>
+      
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Variants</h3>
+          <div class="flex flex-wrap gap-4 items-center">
+            <!-- Primary -->
+            <button class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-xl font-medium shadow-md shadow-brand-500/20 transition-all hover:-translate-y-0.5">
+              Primary Button
+            </button>
+            <!-- Secondary -->
+            <button class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-5 py-2.5 rounded-xl font-medium transition-all">
+              Secondary
+            </button>
+            <!-- Outline -->
+            <button class="bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-xl font-medium shadow-sm transition-all hover:-translate-y-0.5">
+              Outline
+            </button>
+            <!-- Ghost -->
+            <button class="text-brand-600 hover:bg-brand-50 hover:text-brand-700 px-5 py-2.5 rounded-xl font-medium transition-all">
+              Ghost Link
+            </button>
+            <!-- Danger -->
+            <button class="bg-red-50 border border-red-200 text-red-600 hover:bg-red-100 px-5 py-2.5 rounded-xl font-medium shadow-sm transition-all">
+              Danger Action
+            </button>
+            <!-- Disabled -->
+            <button disabled class="bg-slate-100 text-slate-400 px-5 py-2.5 rounded-xl font-medium cursor-not-allowed border border-slate-200">
+              Disabled
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Sizes & Icons</h3>
+          <div class="flex flex-wrap gap-4 items-center">
+            <!-- Small -->
+            <button class="bg-brand-600 hover:bg-brand-700 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition-all">
+              Small
+            </button>
+            <!-- Normal -->
+            <button class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all flex items-center gap-2">
+              <i class="bi bi-cloud-upload"></i> With Icon
+            </button>
+            <!-- Large -->
+            <button class="bg-brand-600 hover:bg-brand-700 text-white px-8 py-3.5 rounded-2xl text-lg font-medium transition-all">
+              Large Call to Action
+            </button>
+            <!-- Icon Only -->
+            <button class="p-3 bg-white border border-slate-300 rounded-xl text-slate-500 hover:text-brand-600 hover:bg-slate-50 transition-colors shadow-sm" title="Settings">
+              <i class="bi bi-gear"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Forms -->
+    <section class="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b border-slate-100 pb-4 gap-2">
+        <h2 class="text-2xl font-bold text-slate-800">Form Inputs & Controls</h2>
+        <a href="https://github.com/tony-jjjentinc/automation-designs/blob/main/snippets/ui/forms.html" target="_blank" class="text-sm font-medium text-brand-600 hover:text-brand-800 flex items-center gap-2 bg-brand-50 px-3 py-1.5 rounded-lg transition-colors hover:bg-brand-100"><i class="bi bi-github"></i> View source code snippet</a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Text Inputs -->
+        <div class="space-y-6">
+          <div>
+            <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Standard Input</label>
+            <input type="text" class="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-slate-900 outline-none transition-all shadow-sm placeholder-slate-400" placeholder="Enter text here..." />
+          </div>
+
+          <div>
+            <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Input with Icon</label>
+            <div class="relative">
+              <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+              <input type="text" class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-slate-900 transition-shadow placeholder-slate-400" placeholder="Search records..." />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Error State</label>
+            <input type="text" class="w-full px-4 py-3 bg-red-50 border border-red-300 text-red-900 rounded-xl focus:ring-2 focus:ring-red-500 outline-none transition-shadow placeholder-red-300" value="Invalid email format" />
+            <p class="text-red-500 text-xs font-medium mt-1.5 ml-1">Please provide a valid email.</p>
+          </div>
+          
+          <div>
+            <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Text Area</label>
+            <textarea class="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-500 text-slate-900 outline-none transition-all shadow-sm placeholder-slate-400 h-24 resize-none" placeholder="Add your comments..."></textarea>
+          </div>
+        </div>
+
+        <!-- Selection Controls -->
+        <div class="space-y-6">
+          <div>
+            <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Select Dropdown</label>
+            <select class="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-700 outline-none focus:ring-2 focus:ring-brand-500 appearance-none pr-10 shadow-sm" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' fill=\'%2364748b\' class=\'bi bi-chevron-down\' viewBox=\'0 0 16 16\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z\'/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 15px center;">
+              <option disabled selected>Select a department</option>
+              <option>Administration</option>
+              <option>Facilities</option>
+              <option>Engineering</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-3 ml-1">Checkboxes</label>
+            <div class="space-y-3">
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="w-5 h-5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer accent-brand-600" checked />
+                <span class="text-slate-700 font-medium group-hover:text-slate-900">Option selected</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="w-5 h-5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer accent-brand-600" />
+                <span class="text-slate-700 font-medium group-hover:text-slate-900">Option unselected</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-3 ml-1">Radio Buttons</label>
+            <div class="flex gap-6">
+              <label class="flex items-center gap-2 cursor-pointer group">
+                <input type="radio" name="demo-radio" class="w-5 h-5 border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer accent-brand-600" checked />
+                <span class="text-slate-700 font-medium group-hover:text-slate-900">Yes</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer group">
+                <input type="radio" name="demo-radio" class="w-5 h-5 border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer accent-brand-600" />
+                <span class="text-slate-700 font-medium group-hover:text-slate-900">No</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-3 ml-1">Toggle Switch (CSS only)</label>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" class="sr-only peer" checked>
+              <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
+              <span class="ml-3 text-sm font-medium text-slate-700">Enable feature</span>
+            </label>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Alerts & Badges -->
+    <section class="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b border-slate-100 pb-4 gap-2">
+        <h2 class="text-2xl font-bold text-slate-800">Feedback & Status</h2>
+        <a href="https://github.com/tony-jjjentinc/automation-designs/blob/main/snippets/ui/feedback.html" target="_blank" class="text-sm font-medium text-brand-600 hover:text-brand-800 flex items-center gap-2 bg-brand-50 px-3 py-1.5 rounded-lg transition-colors hover:bg-brand-100"><i class="bi bi-github"></i> View source code snippet</a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Alerts -->
+        <div>
+          <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Alert Banners</h3>
+          <div class="space-y-4">
+            <div class="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl shadow-sm">
+              <i class="bi bi-check-circle-fill text-emerald-500 text-lg"></i>
+              <span class="text-sm font-medium">Record updated successfully.</span>
+            </div>
+            <div class="flex items-center gap-3 p-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl shadow-sm">
+              <i class="bi bi-exclamation-triangle-fill text-amber-500 text-lg"></i>
+              <span class="text-sm font-medium">Action requires approval before proceeding.</span>
+            </div>
+            <div class="flex items-center gap-3 p-4 bg-red-50 border border-red-200 text-red-800 rounded-xl shadow-sm">
+              <i class="bi bi-x-circle-fill text-red-500 text-lg"></i>
+              <span class="text-sm font-medium">Failed to save the changes.</span>
+            </div>
+            <div class="flex items-center gap-3 p-4 bg-blue-50 border border-blue-200 text-blue-800 rounded-xl shadow-sm">
+              <i class="bi bi-info-circle-fill text-blue-500 text-lg"></i>
+              <span class="text-sm font-medium">A new version of the dashboard is available.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badges -->
+        <div>
+          <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Status Badges</h3>
+          
+          <div class="space-y-6">
+            <div>
+              <p class="text-xs text-slate-500 mb-3 font-semibold">Solid Variants</p>
+              <div class="flex flex-wrap gap-3">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-600 text-white shadow-sm">Primary</span>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white shadow-sm">Success</span>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500 text-white shadow-sm">Warning</span>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-red-500 text-white shadow-sm">Error</span>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-500 text-white shadow-sm">Neutral</span>
+              </div>
+            </div>
+
+            <div>
+              <p class="text-xs text-slate-500 mb-3 font-semibold">Soft / Outline Variants</p>
+              <div class="flex flex-wrap gap-3">
+                <span class="px-3 py-1 rounded-full text-xs font-bold border bg-brand-50 text-brand-700 border-brand-200">Processing</span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border bg-emerald-50 text-emerald-700 border-emerald-200">
+                  <span class="w-1.5 h-1.5 rounded-full mr-1.5 bg-emerald-500"></span> Active
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border bg-amber-50 text-amber-700 border-amber-200">
+                  <span class="w-1.5 h-1.5 rounded-full mr-1.5 bg-amber-500"></span> Pending
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border bg-slate-100 text-slate-700 border-slate-300">
+                  <span class="w-1.5 h-1.5 rounded-full mr-1.5 bg-slate-500"></span> Archived
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Content Cards -->
+    <section class="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b border-slate-100 pb-4 gap-2">
+        <h2 class="text-2xl font-bold text-slate-800">Data Cards</h2>
+        <a href="https://github.com/tony-jjjentinc/automation-designs/blob/main/snippets/ui/cards.html" target="_blank" class="text-sm font-medium text-brand-600 hover:text-brand-800 flex items-center gap-2 bg-brand-50 px-3 py-1.5 rounded-lg transition-colors hover:bg-brand-100"><i class="bi bi-github"></i> View source code snippet</a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Basic Card -->
+        <div class="border border-slate-200 rounded-2xl p-6 bg-white shadow-sm hover:shadow-md transition-shadow">
+          <h3 class="text-lg font-bold text-slate-800 mb-2">Basic Info Card</h3>
+          <p class="text-sm text-slate-500 mb-6">Simple cards are excellent for containing standalone content, dashboard widgets, or grid lists.</p>
+          <button class="text-brand-600 text-sm font-bold hover:text-brand-800 transition-colors">Action Link &rarr;</button>
+        </div>
+
+        <!-- Stat Card -->
+        <div class="border border-slate-200 rounded-2xl p-6 bg-white shadow-sm flex flex-col justify-between group cursor-pointer hover:border-brand-300 transition-colors">
+          <div class="flex justify-between items-start mb-4">
+            <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl">
+              <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <span class="px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg text-xs font-bold">+14%</span>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-slate-900 mb-1">45,231</div>
+            <div class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Total Active Users</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Visualizers & Charts -->
+    <section class="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b border-slate-100 pb-4 gap-2">
+        <h2 class="text-2xl font-bold text-slate-800">Visualizers & Charts</h2>
+        <a href="https://github.com/tony-jjjentinc/automation-designs/blob/main/snippets/ui/charts.html" target="_blank" class="text-sm font-medium text-brand-600 hover:text-brand-800 flex items-center gap-2 bg-brand-50 px-3 py-1.5 rounded-lg transition-colors hover:bg-brand-100"><i class="bi bi-github"></i> View source code snippet</a>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Line Chart Card -->
+        <div class="border border-slate-200 rounded-2xl p-6 bg-white shadow-sm flex flex-col">
+          <div class="mb-4">
+            <h3 class="text-lg font-bold text-slate-800">Revenue Trend</h3>
+            <p class="text-xs text-slate-400 font-medium">Monthly performance across Q3</p>
+          </div>
+          <div class="relative flex-grow h-64">
+            <canvas id="lineChartExample"></canvas>
+          </div>
+        </div>
+
+        <!-- Doughnut Chart Card -->
+        <div class="border border-slate-200 rounded-2xl p-6 bg-white shadow-sm flex flex-col">
+          <div class="mb-4">
+            <h3 class="text-lg font-bold text-slate-800">User Demographics</h3>
+            <p class="text-xs text-slate-400 font-medium">Distribution by platform</p>
+          </div>
+          <div class="relative flex-grow h-64 flex justify-center items-center">
+            <canvas id="doughnutChartExample"></canvas>
+          </div>
+        </div>
+
+        <!-- Bar Chart Card -->
+        <div class="border border-slate-200 rounded-2xl p-6 bg-white shadow-sm flex flex-col">
+          <div class="mb-4">
+            <h3 class="text-lg font-bold text-slate-800">Weekly Performance</h3>
+            <p class="text-xs text-slate-400 font-medium">Tasks completed per day</p>
+          </div>
+          <div class="relative flex-grow h-64">
+            <canvas id="barChartExample"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Chart.js Initialization Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Initialize Line Chart
+      const lineCtx = document.getElementById('lineChartExample');
+      if (lineCtx) {
+        new Chart(lineCtx, {
+          type: 'line',
+          data: {
+            labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+              label: 'Revenue ($)',
+              data: [12500, 15000, 14200, 18500, 22000, 24500],
+              borderColor: '#3b82f6', // brand-500
+              backgroundColor: 'rgba(59, 130, 246, 0.1)', // brand-500 10%
+              borderWidth: 3,
+              pointBackgroundColor: '#ffffff',
+              pointBorderColor: '#3b82f6',
+              pointBorderWidth: 2,
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              fill: true,
+              tension: 0.4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: '#1e293b',
+                padding: 10,
+                cornerRadius: 8,
+                displayColors: false,
+              }
+            },
+            scales: {
+              x: {
+                grid: { display: false, drawBorder: false },
+                ticks: { color: '#94a3b8', font: { family: 'Inter', size: 12 } }
+              },
+              y: {
+                border: { display: false },
+                grid: { color: '#f1f5f9', borderDash: [5, 5] },
+                ticks: { 
+                  color: '#94a3b8', 
+                  font: { family: 'Inter', size: 12 },
+                  callback: (value) => '$' + (value / 1000) + 'k'
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // 2. Initialize Doughnut Chart
+      const doughnutCtx = document.getElementById('doughnutChartExample');
+      if (doughnutCtx) {
+        new Chart(doughnutCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Desktop', 'Mobile', 'Tablet'],
+            datasets: [{
+              data: [55, 30, 15],
+              backgroundColor: ['#3b82f6', '#0ea5e9', '#cbd5e1'],
+              borderWidth: 0,
+              hoverOffset: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '75%',
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  usePointStyle: true,
+                  padding: 20,
+                  color: '#64748b',
+                  font: { family: 'Inter', size: 12 }
+                }
+              },
+              tooltip: {
+                backgroundColor: '#1e293b',
+                padding: 10,
+                cornerRadius: 8
+              }
+            }
+          }
+        });
+      }
+
+      // 3. Initialize Bar Chart
+      const barCtx = document.getElementById('barChartExample');
+      if (barCtx) {
+        new Chart(barCtx, {
+          type: 'bar',
+          data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+            datasets: [{
+              label: 'Tasks Completed',
+              data: [12, 19, 15, 25, 22],
+              backgroundColor: '#3b82f6', // brand-500
+              borderRadius: 4,
+              borderSkipped: false
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: '#1e293b',
+                padding: 10,
+                cornerRadius: 8,
+                displayColors: false,
+              }
+            },
+            scales: {
+              x: {
+                grid: { display: false, drawBorder: false },
+                ticks: { color: '#94a3b8', font: { family: 'Inter', size: 12 } }
+              },
+              y: {
+                border: { display: false },
+                grid: { color: '#f1f5f9', borderDash: [5, 5] },
+                ticks: { color: '#94a3b8', font: { family: 'Inter', size: 12 } }
+              }
+            }
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

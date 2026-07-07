@@ -1,0 +1,36 @@
+<!-- 
+  UI Component: Buttons & Actions
+  Description: A collection of buttons tailored for primary actions, secondary actions, and ghost links.
+  Usage: Use Tailwind CSS classes for hover effects, shadows, and disabled states.
+-->
+<div class="flex flex-wrap gap-4 items-center">
+  <!-- Primary: Used for the main action on a page (e.g., Save, Submit) -->
+  <button class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-xl font-medium shadow-md shadow-brand-500/20 transition-all hover:-translate-y-0.5">
+    Primary Button
+  </button>
+  
+  <!-- Secondary: Used for alternative actions next to primary actions -->
+  <button class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-5 py-2.5 rounded-xl font-medium transition-all">
+    Secondary
+  </button>
+  
+  <!-- Outline: Used for less prominent actions -->
+  <button class="bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-xl font-medium shadow-sm transition-all hover:-translate-y-0.5">
+    Outline
+  </button>
+  
+  <!-- Ghost: Used for subtle actions like "Cancel" or "Back" -->
+  <button class="text-brand-600 hover:bg-brand-50 hover:text-brand-700 px-5 py-2.5 rounded-xl font-medium transition-all">
+    Ghost Link
+  </button>
+  
+  <!-- Danger: Used for destructive actions like "Delete" -->
+  <button class="bg-red-50 border border-red-200 text-red-600 hover:bg-red-100 px-5 py-2.5 rounded-xl font-medium shadow-sm transition-all">
+    Danger Action
+  </button>
+  
+  <!-- Disabled: Applied when an action is unavailable -->
+  <button disabled class="bg-slate-100 text-slate-400 px-5 py-2.5 rounded-xl font-medium cursor-not-allowed border border-slate-200">
+    Disabled
+  </button>
+</div>

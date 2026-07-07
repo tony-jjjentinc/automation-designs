@@ -1,0 +1,34 @@
+<!--
+  Layout Module: Dashboard Portal Shell
+  Description: The standard wrapper structure for dashboard pages, including a header and a main content area.
+  Usage: Wrap your page content inside the `<main>` tag.
+-->
+<div class="flex flex-col min-h-screen bg-slate-50 relative overflow-hidden">
+  
+  <!-- Navbar goes here -->
+  <header class="px-6 py-4 bg-white border-b border-slate-200 flex justify-between sticky top-0 z-40">
+    <div class="font-bold text-slate-800">Portal</div>
+    <div class="w-8 h-8 rounded-full bg-slate-200"></div>
+  </header>
+  
+  <!-- Main Content Wrapper -->
+  <main class="flex-grow p-6 w-full max-w-5xl mx-auto z-10">
+    
+    <!-- Page Header (Title + Action) -->
+    <div class="flex justify-between items-end mb-6">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900">Page Title</h1>
+        <p class="text-slate-500 text-sm mt-1">Subtitle or description goes here.</p>
+      </div>
+      <button class="bg-brand-600 hover:bg-brand-700 transition-colors text-white px-4 py-2 rounded-xl text-sm font-medium">
+        <i class="bi bi-plus-lg"></i> Action
+      </button>
+    </div>
+    
+    <!-- White Content Block (Widgets, Tables, Cards go here) -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm min-h-[200px] flex items-center justify-center text-slate-400">
+      <p>White content block (tables, grids, forms)</p>
+    </div>
+    
+  </main>
+</div>

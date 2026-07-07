@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipment Status Report</title>
+  <base target="_top">
+  <style>
+    :root {
+      /* User configurable brand background */
+      --background-brand: #BEE0E9;
+      /* default to Architectural, Civil, & Structural */
+    }
+  </style>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+    rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            'background-brand': 'var(--background-brand)'
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-out',
+            'slide-up': 'slideUp 0.6s ease-out',
+          },
+          keyframes: {
+            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+            slideUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React & ReactDOM -->
+  <script crossorigin="anonymous" src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body class="antialiased overflow-x-hidden min-h-screen bg-background-brand">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const EquipmentReportForm = () => {
+      const [isSubmitting, setIsSubmitting] = useState(false);
+      const [isSuccess, setIsSuccess] = useState(false);
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        // Mock Google Sheets API Submission Delay
+        setTimeout(() => {
+          setIsSubmitting(false);
+          setIsSuccess(true);
+
+          // Reset form after a few seconds
+          setTimeout(() => setIsSuccess(false), 3000);
+        }, 1200);
+      };
+
+      return (
+        <div className="min-h-screen flex flex-col justify-center items-center p-4 md:p-8 animate-fade-in relative">
+
+          {/* Form Container */}
+          <div className="w-full max-w-2xl bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl p-6 md:p-10 z-10 animate-slide-up border border-white/40">
+
+            {/* Logo */}
+            <div className="mb-2 z-10 mb-8 flex justify-center items-center">
+              <img src="../../assets/images/jjjei.png" alt="Company Logo" className="h-40 object-cover drop-shadow-lg" />
+            </div>
+
+            <div className="text-center mb-8">
+              <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Equipment Status Report</h1>
+              <p className="text-slate-500 mt-2 text-sm md:text-base">
+                Facilities &gt; Architectural, Civil, & Structural
+              </p>
+            </div>
+
+            <div className="w-full border my-8" />
+
+            {isSuccess ? (
+              <div className="flex flex-col items-center justify-center py-12 animate-fade-in">
+                <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-4xl mb-4 shadow-inner">
+                  <i className="bi bi-check-lg"></i>
+                </div>
+                <h3 className="text-xl font-bold text-slate-800 mb-2">Report Submitted!</h3>
+                <p className="text-slate-500 text-center">Your data has been successfully recorded.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-slate-600 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Equipment ID</label>
+                    <input type="text" required className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#0000FF] focus:border-[#0000FF] outline-none text-slate-800 transition-shadow shadow-sm placeholder-slate-400" placeholder="e.g. AC-HVAC-01" />
+                  </div>
+                  <div>
+                    <label className="block text-slate-600 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Equipment Name</label>
+                    <input type="text" required className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#0000FF] focus:border-[#0000FF] outline-none text-slate-800 transition-shadow shadow-sm placeholder-slate-400" placeholder="e.g. Main Chiller Unit" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-slate-600 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Current Status</label>
+                  <div className="relative">
+                    <select required className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#0000FF] focus:border-[#0000FF] outline-none text-slate-800 appearance-none transition-shadow shadow-sm font-medium">
+                      <option value="" disabled selected>Select status...</option>
+                      <option value="Operational">🟢 Operational</option>
+                      <option value="Maintenance">🟡 Needs Maintenance</option>
+                      <option value="Out of Order">🔴 Out of Order / Critical</option>
+                    </select>
+                    <i className="bi bi-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-slate-600 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Remarks / Issues</label>
+                  <textarea required className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#0000FF] focus:border-[#0000FF] outline-none text-slate-800 transition-shadow shadow-sm placeholder-slate-400 resize-none h-28" placeholder="Describe the current condition or any visible damage..."></textarea>
+                </div>
+
+                <div>
+                  <label className="block text-slate-600 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Reported By</label>
+                  <div className="relative">
+                    <i className="bi bi-person absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" required className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#0000FF] focus:border-[#0000FF] outline-none text-slate-800 transition-shadow shadow-sm placeholder-slate-400" placeholder="Your Name" />
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <button type="submit" disabled={isSubmitting} className="w-full py-4 bg-gradient-to-r from-[#0000FF] to-[#010AFD] hover:shadow-lg hover:shadow-[#0000FF]/30 text-white font-bold rounded-xl transition-all flex justify-center items-center gap-2 transform hover:-translate-y-0.5 disabled:opacity-70 disabled:hover:translate-y-0 disabled:shadow-none">
+                    {isSubmitting ? (
+                      <React.Fragment><i className="bi bi-arrow-repeat animate-spin text-xl"></i> Submitting to Database...</React.Fragment>
+                    ) : (
+                      <React.Fragment>Submit Report <i className="bi bi-send-fill"></i></React.Fragment>
+                    )}
+                  </button>
+                </div>
+
+                <div className="pt-2">
+                  <div className="text-black/30 text-center text-sm font-medium">
+                    Facilities Department - v3.2
+                  </div>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<EquipmentReportForm />);
+  </script>
+</body>
+
+</html>

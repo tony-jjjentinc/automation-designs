@@ -1,0 +1,38 @@
+<!--
+  UI Component: Form Inputs & Controls
+  Description: A standardized collection of input fields, text areas, dropdowns, and switches for data collection.
+  Usage: Wrap in a <form> tag. Use focus:ring and focus:border for active states. Use red-themed inputs for error states.
+-->
+
+<!-- Standard Text Input -->
+<div>
+  <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Standard Input</label>
+  <input type="text" class="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-slate-900 outline-none transition-all shadow-sm placeholder-slate-400" placeholder="Enter text here..." />
+</div>
+
+<!-- Input with Leading Icon -->
+<div>
+  <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Input with Icon</label>
+  <div class="relative">
+    <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+    <!-- Note the padding-left (pl-11) to make room for the absolute-positioned icon -->
+    <input type="text" class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-slate-900 transition-shadow placeholder-slate-400" placeholder="Search records..." />
+  </div>
+</div>
+
+<!-- Input Error State -->
+<div>
+  <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Error State</label>
+  <input type="text" class="w-full px-4 py-3 bg-red-50 border border-red-300 text-red-900 rounded-xl focus:ring-2 focus:ring-red-500 outline-none transition-shadow placeholder-red-300" value="Invalid email format" />
+  <p class="text-red-500 text-xs font-medium mt-1.5 ml-1">Please provide a valid email.</p>
+</div>
+
+<!-- CSS-Only Toggle Switch -->
+<div>
+  <label class="block text-slate-500 text-xs font-bold uppercase tracking-wider mb-3 ml-1">Toggle Switch (CSS only)</label>
+  <label class="relative inline-flex items-center cursor-pointer">
+    <input type="checkbox" class="sr-only peer" checked>
+    <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
+    <span class="ml-3 text-sm font-medium text-slate-700">Enable feature</span>
+  </label>
+</div>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Page Template</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-brand {
+            font-weight: 600;
+        }
+        .main-container {
+            padding: 30px 15px;
+        }
+        .card-custom {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .action-buttons .btn {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fas fa-tools me-2"></i> Systems Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Dashboards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Portals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container main-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Manage Portals</h2>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPortalModal">
+                <i class="fas fa-plus me-1"></i> Add New Portal
+            </button>
+        </div>
+
+        <div class="card card-custom">
+            <div class="card-body">
+                <!-- Search and Filter -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Search portals...">
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                        <select class="form-select w-auto d-inline-block">
+                            <option selected>All Statuses</option>
+                            <option value="1">Active</option>
+                            <option value="2">Inactive</option>
+                            <option value="3">Draft</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Portal Name</th>
+                                <th>URL Path</th>
+                                <th>Owner</th>
+                                <th>Status</th>
+                                <th>Last Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Employee HR Portal</strong></td>
+                                <td>/hr-portal</td>
+                                <td>HR Department</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>2 days ago</td>
+                                <td class="action-buttons">
+                                    <button class="btn btn-outline-primary" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-outline-secondary" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn btn-outline-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>IT Helpdesk</strong></td>
+                                <td>/it-helpdesk</td>
+                                <td>IT Ops</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>5 days ago</td>
+                                <td class="action-buttons">
+                                    <button class="btn btn-outline-primary" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-outline-secondary" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn btn-outline-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Vendor Management</strong></td>
+                                <td>/vendors</td>
+                                <td>Procurement</td>
+                                <td><span class="badge bg-secondary">Draft</span></td>
+                                <td>1 week ago</td>
+                                <td class="action-buttons">
+                                    <button class="btn btn-outline-primary" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-outline-secondary" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn btn-outline-danger" title="Delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-3">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Portal Modal -->
+    <div class="modal fade" id="addPortalModal" tabindex="-1" aria-labelledby="addPortalModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPortalModalLabel">Create New Portal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="portalName" class="form-label">Portal Name</label>
+                            <input type="text" class="form-control" id="portalName" placeholder="e.g. Sales Dashboard">
+                        </div>
+                        <div class="mb-3">
+                            <label for="portalUrl" class="form-label">URL Path</label>
+                            <input type="text" class="form-control" id="portalUrl" placeholder="/sales-dash">
+                        </div>
+                        <div class="mb-3">
+                            <label for="portalOwner" class="form-label">Owner Department</label>
+                            <select class="form-select" id="portalOwner">
+                                <option selected>Select department...</option>
+                                <option value="hr">HR</option>
+                                <option value="it">IT</option>
+                                <option value="sales">Sales</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="portalDesc" class="form-label">Description</label>
+                            <textarea class="form-control" id="portalDesc" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save Portal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

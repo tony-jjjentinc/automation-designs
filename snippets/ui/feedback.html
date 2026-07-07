@@ -1,0 +1,35 @@
+<!--
+  UI Component: Feedback & Status (Alerts & Badges)
+  Description: Visual indicators to communicate status, errors, success, and states to the user.
+-->
+
+<!-- Alert Banners -->
+<!-- Success Alert -->
+<div class="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl shadow-sm">
+  <i class="bi bi-check-circle-fill text-emerald-500 text-lg"></i>
+  <span class="text-sm font-medium">Record updated successfully.</span>
+</div>
+
+<!-- Warning Alert -->
+<div class="flex items-center gap-3 p-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl shadow-sm">
+  <i class="bi bi-exclamation-triangle-fill text-amber-500 text-lg"></i>
+  <span class="text-sm font-medium">Action requires approval before proceeding.</span>
+</div>
+
+<!-- Status Badges: Solid Variants -->
+<div class="flex flex-wrap gap-3">
+  <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-600 text-white shadow-sm">Primary</span>
+  <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white shadow-sm">Success</span>
+  <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500 text-white shadow-sm">Warning</span>
+  <span class="px-3 py-1 rounded-full text-xs font-bold bg-red-500 text-white shadow-sm">Error</span>
+  <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-500 text-white shadow-sm">Neutral</span>
+</div>
+
+<!-- Status Badges: Soft / Outline Variants with Dot -->
+<div class="flex flex-wrap gap-3 mt-4">
+  <span class="px-3 py-1 rounded-full text-xs font-bold border bg-brand-50 text-brand-700 border-brand-200">Processing</span>
+  <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border bg-emerald-50 text-emerald-700 border-emerald-200">
+    <!-- Small colored dot indicator -->
+    <span class="w-1.5 h-1.5 rounded-full mr-1.5 bg-emerald-500"></span> Active
+  </span>
+</div>
