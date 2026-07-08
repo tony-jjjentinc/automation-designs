@@ -250,43 +250,6 @@
                         {activeTab === 'info' && (
                             <div className="animate-slide-up space-y-12">
 
-                                <section>
-                                    <h2 className="text-3xl font-bold text-slate-900 mb-4 tracking-tight">Setup Guidelines & Rules</h2>
-                                    <p className="text-slate-600 mb-6 leading-relaxed text-lg">
-                                        This guide establishes the standard design for future Web Applications
-                                    </p>
-
-                                    <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
-                                        <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                                            <i className="bi bi-stack text-brand-600"></i> Core Technologies
-                                        </h3>
-                                        <p className="text-slate-600 mb-4">
-                                            The recommended technology stack prioritizes performance, visual excellence, and compatibility with Google Apps Scripts
-                                        </p>
-                                        <ul className="space-y-3 mb-6">
-                                            <li className="flex items-start gap-3">
-                                                <i className="bi bi-check-circle-fill text-brand-500 mt-0.5"></i>
-                                                <div>
-                                                    <strong className="text-slate-800">Recommended Styling: Tailwind CSS via CDN.</strong> Enables rapid, premium UI designs
-                                                </div>
-                                            </li>
-                                            <li className="flex items-start gap-3">
-                                                <i className="bi bi-check-circle-fill text-brand-500 mt-0.5"></i>
-                                                <div>
-                                                    <strong className="text-slate-800">Rendering: React.js + Babel via CDN.</strong> Allows component-driven setup and state management directly in the browser
-                                                </div>
-                                            </li>
-                                        </ul>
-
-                                        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 mt-8">
-                                            <h4 className="font-bold text-amber-800 mb-2 flex items-center gap-2"><i className="bi bi-info-circle"></i> Acceptable Alternatives</h4>
-                                            <p className="text-sm text-amber-700 leading-relaxed">
-                                                If React or Tailwind are not feasible for a specific legacy project, the following are acceptable fallbacks: <strong>Bootstrap 5</strong> for grid and components, and <strong>Vanilla JavaScript / CSS</strong> for simple logic and styling. However, the modern stack is strongly preferred for new initiatives.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </section>
-
                                 <section className="hidden">
                                     <h3 className="text-2xl font-bold text-slate-800 mb-4">Initial Setup Snippet</h3>
                                     <p className="text-slate-600 mb-4">Copy and paste these scripts into the `head` of your `index.html` file to initialize the environment.</p>
@@ -336,6 +299,45 @@
                                                 <ColorSwatch name="Mechanical" hex="#001166" />
                                                 <ColorSwatch name="Plumbing" hex="#BEE0E9" />
                                             </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+
+
+                                <section>
+                                    <h2 className="text-3xl font-bold text-slate-900 mb-4 tracking-tight">Setup Guidelines & Rules</h2>
+                                    <p className="text-slate-600 mb-6 leading-relaxed text-lg">
+                                        This guide establishes the standard design for future Web Applications
+                                    </p>
+
+                                    <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+                                        <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                            <i className="bi bi-stack text-brand-600"></i> Core Technologies
+                                        </h3>
+                                        <p className="text-slate-600 mb-4">
+                                            The recommended technology stack prioritizes performance, visual excellence, and compatibility with Google Apps Scripts
+                                        </p>
+                                        <ul className="space-y-3 mb-6">
+                                            <li className="flex items-start gap-3">
+                                                <i className="bi bi-check-circle-fill text-brand-500 mt-0.5"></i>
+                                                <div>
+                                                    <strong className="text-slate-800">Recommended Styling: Tailwind CSS via CDN.</strong> Enables rapid, premium UI designs
+                                                </div>
+                                            </li>
+                                            <li className="flex items-start gap-3">
+                                                <i className="bi bi-check-circle-fill text-brand-500 mt-0.5"></i>
+                                                <div>
+                                                    <strong className="text-slate-800">Rendering: React.js + Babel via CDN.</strong> Allows component-driven setup and state management directly in the browser
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 mt-8">
+                                            <h4 className="font-bold text-amber-800 mb-2 flex items-center gap-2"><i className="bi bi-info-circle"></i> Acceptable Alternatives</h4>
+                                            <p className="text-sm text-amber-700 leading-relaxed">
+                                                If React or Tailwind are not feasible for a specific legacy project, the following are acceptable fallbacks: <strong>Bootstrap 5</strong> for grid and components, and <strong>Vanilla JavaScript / CSS</strong> for simple logic and styling. However, the modern stack is strongly preferred for new initiatives.
+                                            </p>
                                         </div>
                                     </div>
                                 </section>
