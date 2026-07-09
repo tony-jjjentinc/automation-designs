@@ -142,15 +142,31 @@
             );
         };
 
-        const ColorSwatch = ({ name, hex }) => (
-            <div className="flex items-center gap-4 p-3 bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 rounded-lg shadow-inner border border-slate-200/50" style={{ backgroundColor: hex }}></div>
-                <div>
-                    <div className="font-bold text-slate-800 text-sm">{name}</div>
-                    <div className="text-slate-500 font-mono text-xs">{hex}</div>
+        const ColorSwatch = ({ name, hex }) => {
+            const [copied, setCopied] = useState(false);
+
+            const handleCopy = () => {
+                navigator.clipboard.writeText(hex);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            };
+
+            return (
+                <div
+                    className="flex items-center  rounded-2xl overflow-hidden gap-4 p-0 bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer hover:border-brand-300 relative group"
+                    onClick={handleCopy}
+                    title="Click to copy HEX"
+                >
+                    <div className="w-24 h-24 shadow-inner flex-shrink-0 transition-transform group-hover:scale-105" style={{ backgroundColor: hex }}></div>
+                    <div className="flex-grow">
+                        <div className="font-bold text-slate-800 text-sm leading-tight">{name}</div>
+                        <div className="text-slate-500 font-mono text-xs mt-1">
+                            {copied ? <span className="text-emerald-600 font-bold"><i className="bi bi-check2"></i> Copied!</span> : hex}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        };
 
         const App = () => {
             const [activeTab, setActiveTab] = useState('home');
@@ -248,28 +264,7 @@
                         )}
 
                         {activeTab === 'info' && (
-                            <div className="animate-slide-up space-y-12">
-
-                                <section className="hidden">
-                                    <h3 className="text-2xl font-bold text-slate-800 mb-4">Initial Setup Snippet</h3>
-                                    <p className="text-slate-600 mb-4">Copy and paste these scripts into the `head` of your `index.html` file to initialize the environment.</p>
-
-                                    <CodeSnippet
-                                        language="HTML"
-                                        code={`<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"><\/script>
-
-<!-- React & ReactDOM -->
-<script crossorigin="anonymous" src="https://unpkg.com/react@18/umd/react.development.js"><\/script>
-<script crossorigin="anonymous" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"><\/script>
-
-<!-- Babel for in-browser JSX -->
-<script crossorigin="anonymous" src="https://unpkg.com/@babel/standalone/babel.min.js"><\/script>
-
-<!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">`}
-                                    />
-                                </section>
+                            <div className="animate-slide-up space-y-24">
 
                                 <section>
                                     <h3 className="text-2xl font-bold text-slate-800 mb-4">Department Color Codes</h3>
@@ -303,13 +298,32 @@
                                     </div>
                                 </section>
 
+                                <section className="mt-12">
+                                    <h2 className="text-2xl font-bold text-slate-800 mb-4">Recommended Fonts</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                                            <div className="flex justify-between items-start mb-4">
+                                                <h3 className="text-2xl font-bold text-slate-800" style={{ fontFamily: '"Inter", sans-serif' }}>Inter</h3>
+                                                <span className="px-3 py-1 bg-brand-50 text-brand-700 text-xs font-bold rounded-full border border-brand-100">Primary</span>
+                                            </div>
+                                            <div className="text-slate-800 text-xl font-medium" style={{ fontFamily: '"Inter", sans-serif' }}>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                                            </div>
+                                        </div>
+                                        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                                            <div className="flex justify-between items-start mb-4">
+                                                <h3 className="text-2xl font-bold text-slate-800" style={{ fontFamily: '"Outfit", sans-serif' }}>Outfit</h3>
+                                            </div>
+                                            <div className="text-slate-800 text-xl font-medium" style={{ fontFamily: '"Outfit", sans-serif' }}>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
 
 
                                 <section>
-                                    <h2 className="text-3xl font-bold text-slate-900 mb-4 tracking-tight">Setup Guidelines & Rules</h2>
-                                    <p className="text-slate-600 mb-6 leading-relaxed text-lg">
-                                        This guide establishes the standard design for future Web Applications
-                                    </p>
+                                    <h2 className="text-2xl font-bold text-slate-800 mb-4">Setup Guidelines & Rules</h2>
 
                                     <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
                                         <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">

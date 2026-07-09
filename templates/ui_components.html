@@ -33,13 +33,26 @@
     }
   </script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased p-4 md:p-8">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+  <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-100/40 rounded-full blur-[100px]"></div>
+  </div>
+  
+  <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40">
+      <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+              <a href="../index.html" class="w-10 h-10 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-brand-600 rounded-full transition-colors shadow-sm">
+                  <i class="bi bi-arrow-left text-lg"></i>
+              </a>
+              <h1 class="text-xl font-bold text-slate-800">UI Components Showcase</h1>
+          </div>
+      </div>
+  </header>
 
-  <div class="max-w-5xl mx-auto space-y-12 pb-16">
-    <div>
-      <a href="../index.html" class="text-brand-600 hover:text-brand-700 text-sm font-semibold mb-4 inline-block"><i class="bi bi-arrow-left"></i> Back to Hub</a>
-      <h1 class="text-3xl font-bold text-slate-900 tracking-tight">UI Components</h1>
-      <p class="text-slate-500 mt-2 text-lg">Preview of user interface components with <b>Tailwind CSS</b> styling</p>
+  <main class="max-w-6xl mx-auto w-full px-6 py-12 space-y-12 pb-24 z-10 animate-fade-in">
+    <div class="mb-12 text-center">
+        <h2 class="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Explore the UI Library</h2>
+        <p class="text-slate-500 text-lg max-w-2xl mx-auto">Preview our standardized user interface components styled beautifully with <b>Tailwind CSS</b>.</p>
     </div>
 
     <!-- Buttons -->
@@ -338,7 +351,7 @@
       </div>
     </section>
 
-  </div>
+  </main>
 
   <!-- Chart.js Initialization Script -->
   <script>

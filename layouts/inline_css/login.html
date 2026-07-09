@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Overlay - Inline CSS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { margin: 0; min-height: 100vh; font-family: 'Inter', sans-serif; background-color: #0f172a; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 16px; box-sizing: border-box;}
+        * { box-sizing: border-box; }
+        .input-field:focus { outline: none; box-shadow: 0 0 0 2px #0ea5e9; border-color: #0ea5e9; }
+        .btn:hover { background-color: #0284c7; }
+        .btn:active { background-color: #0369a1; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <img src="https://tony-jjjentinc.github.io/automation-designs/assets/images/jjjei2.png" alt="Logo" style="height: 64px; object-fit: contain; margin-bottom: 24px; animation: fadeIn 0.5s ease-out; z-index: 10;" />
+    
+    <div style="width: 100%; max-width: 448px; padding: 32px; background-color: white; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); animation: slideUp 0.5s ease-out; z-index: 10;">
+      <h4 style="font-size: 20px; font-weight: 500; text-align: center; color: #0f172a; margin-top: 0; margin-bottom: 4px; letter-spacing: -0.025em;">System Login</h4>
+      <p style="font-size: 12px; text-align: center; color: #64748b; margin-top: 0; margin-bottom: 24px;">2026 - v3.2</p>
+      
+      <form style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <input type="email" class="input-field" style="width: 100%; padding: 12px 16px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #0f172a; transition: all 0.2s;" placeholder="Email" required />
+        </div>
+        <div>
+          <input type="password" class="input-field" style="width: 100%; padding: 12px 16px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #0f172a; transition: all 0.2s;" placeholder="Password" required />
+        </div>
+        <button type="button" class="btn" style="width: 100%; padding: 12px; background-color: #0ea5e9; color: white; font-weight: 500; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; margin-top: 8px;">
+          Login
+        </button>
+      </form>
+
+      <div style="margin-top: 24px; text-align: center; font-size: 14px; color: #64748b; background-color: #f8fafc; padding: 8px; border-radius: 6px; border: 1px solid #f1f5f9;">
+        <span style="display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: bold; color: #94a3b8;">Demo Credentials</span>
+        <span style="font-weight: 500; color: #334155;">user@example.com</span> / <span style="font-weight: 500; color: #334155;">password</span>
+      </div>
+    </div>
+</body>
+</html>
